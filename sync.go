@@ -42,7 +42,7 @@ func sync(packageName string) int {
 	os.Chdir(directoryPath);
 
 	//makepkg -Si
-	syscall.Exec("makepkg", args, os.Environ())
+	syscall.Exec("/usr/bin/makepkg", args, os.Environ())
 	//os.RemoveAll("/home/theion/.cache/smug");
 
 return 0;
