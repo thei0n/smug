@@ -4,7 +4,8 @@ import(
 	// "strings"
 	"github.com/go-git/go-git/v5"
 	"os"
-	"os/exec"
+	// "os/exec"
+	"syscall"
 )
 
 func sync(packageName string) int {
@@ -13,6 +14,8 @@ func sync(packageName string) int {
 	const baseUrl = "https://aur.archlinux.org/"
 	const suffix = ".git"
 	finalUrl := baseUrl+packageName+suffix
+
+	args := []string{"makepkg", "-si"}
 
 	//create the directory
 	/*
@@ -39,10 +42,7 @@ func sync(packageName string) int {
 	os.Chdir(directoryPath);
 
 	//makepkg -Si
-	cmd:=exec.Command("makepkg","-si")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run();
+	syscall.Exec("makepkg", args, os.Environ())
 	//os.RemoveAll("/home/theion/.cache/smug");
 
 return 0;
